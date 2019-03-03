@@ -1,0 +1,3 @@
+#!/bin/sh
+
+mvn -l target/mvn.out.log -Ddisable.git.setup clean verify
