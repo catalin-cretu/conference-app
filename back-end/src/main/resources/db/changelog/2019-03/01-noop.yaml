@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01-noop
+      author: conference

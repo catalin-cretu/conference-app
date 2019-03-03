@@ -1,0 +1,4 @@
+spring:
+  liquibase:
+    url: jdbc:h2:./target/data/app-test;AUTO_SERVER=true
+    test-rollback-on-update: true
