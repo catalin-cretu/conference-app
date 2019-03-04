@@ -10,7 +10,8 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>back-end</module>
+    <module>api</module>
+    <module>web-api</module>
     <module>functional-tests</module>
   </modules>
 
@@ -28,6 +29,7 @@
 
     <junit-jupiter.version>5.3.2</junit-jupiter.version>
     <springboot.version>2.1.3.RELEASE</springboot.version>
+    <togglz.version>2.6.1.Final</togglz.version>
 
     <!--failsafe/surefire plugin config-->
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
@@ -42,6 +44,11 @@
         <version>${springboot.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>2.3.0</version>
       </dependency>
 
       <dependency>
@@ -71,11 +78,15 @@
       </dependency>
 
       <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>1.23</version>
+      </dependency>
+      <dependency>
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
         <version>1.4.198</version>
       </dependency>
-
       <dependency>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-core</artifactId>
@@ -84,14 +95,30 @@
 
       <dependency>
         <groupId>org.togglz</groupId>
-        <artifactId>togglz-core</artifactId>
-        <version>2.6.1.Final</version>
+        <artifactId>togglz-junit5</artifactId>
+        <version>${togglz.version}</version>
+        <scope>test</scope>
       </dependency>
-
       <dependency>
-        <groupId>org.yaml</groupId>
-        <artifactId>snakeyaml</artifactId>
-        <version>1.23</version>
+        <groupId>org.togglz</groupId>
+        <artifactId>togglz-testing</artifactId>
+        <version>${togglz.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.togglz</groupId>
+        <artifactId>togglz-spring-boot-starter</artifactId>
+        <version>${togglz.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.togglz</groupId>
+        <artifactId>togglz-core</artifactId>
+        <version>${togglz.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.togglz</groupId>
+        <artifactId>togglz-console</artifactId>
+        <version>${togglz.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -100,6 +127,29 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.togglz</groupId>
+      <artifactId>togglz-testing</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.togglz</groupId>
+      <artifactId>togglz-junit5</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
