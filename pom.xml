@@ -12,6 +12,7 @@
   <modules>
     <module>api</module>
     <module>web-api</module>
+    <module>jpa-api</module>
     <module>functional-tests</module>
     <module>web</module>
   </modules>
@@ -101,6 +102,11 @@
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-core</artifactId>
         <version>3.6.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-java8</artifactId>
+        <version>5.3.7.Final</version>
       </dependency>
 
       <dependency>

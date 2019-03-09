@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01-add-event
+      author: conference
+      changes:
+        - createTable:
+            tableName: EVENT
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ID_PK
+              - column:
+                  name: START_DATE_TIME
+                  type: datetime
+              - column:
+                  name: END_DATE_TIME
+                  type: datetime
+              - column:
+                  name: TITLE
+                  type: varchar(200)
+              - column:
+                  name: DESCRIPTION
+                  type: varchar(3000)
+              - column:
+                  name: LOCATION
+                  type: varchar(100)
+              - column:
+                  name: NAME
+                  type: varchar(100)
+              - column:
+                  name: JOB_TITLE
+                  type: varchar(100)
+              - column:
+                  name: COMPANY_NAME
+                  type: varchar(100)
