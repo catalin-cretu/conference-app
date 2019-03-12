@@ -12,7 +12,11 @@ target/
 
 # src
 *.db
-/.idea/**
-!/.idea/codeStyles/*
-!/.idea/codeStyles/codeStyleConfig.xml
-!/.idea/codeStyles/Project.xml
+/.idea/workspace.xml
+/.idea/modules.xml
+/.idea/encodings.xml
+/.idea/dbnavigator.xml
+/.idea/compiler.xml
+/.idea/sonarlint/
+/.idea/libraries/
+/.idea/dictionaries/
