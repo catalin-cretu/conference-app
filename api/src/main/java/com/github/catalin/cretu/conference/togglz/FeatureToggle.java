@@ -14,4 +14,8 @@ public enum FeatureToggle implements Feature {
     public boolean isActive() {
         return FeatureContext.getFeatureManager().isActive(this);
     }
+
+    public boolean isNotActive() {
+        return !isActive();
+    }
 }

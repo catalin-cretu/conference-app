@@ -6,11 +6,11 @@ import com.github.catalin.cretu.conference.togglz.FeatureToggle;
 import java.util.Map;
 import java.util.Optional;
 
-class DefaultFeatureRepository implements FeatureRepository {
+class InMemFeatureRepository implements FeatureRepository {
 
     private Map<FeatureToggle, Boolean> stateByFeatureToggle;
 
-    DefaultFeatureRepository(final Map<FeatureToggle, Boolean> stateByFeatureToggle) {
+    InMemFeatureRepository(final Map<FeatureToggle, Boolean> stateByFeatureToggle) {
         this.stateByFeatureToggle = stateByFeatureToggle;
     }
 

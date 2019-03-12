@@ -17,13 +17,13 @@ public class Fixtures {
         Map<FeatureToggle, Boolean> stateByFeatureToggle = new EnumMap<>(FeatureToggle.class);
         stateByFeatureToggle.put(featureToggle, active);
 
-        return new FeatureService(new DefaultFeatureRepository(stateByFeatureToggle));
+        return new FeatureService(new InMemFeatureRepository(stateByFeatureToggle));
     }
 
     public static EventService eventService(Event... defaultEvents) {
         Set<Event> events = new HashSet<>(defaultEvents.length);
         events.addAll(Arrays.asList(defaultEvents));
 
-        return new EventService(new DefaultEventRepository(events));
+        return new EventService(new InMemEventRepository(events));
     }
 }

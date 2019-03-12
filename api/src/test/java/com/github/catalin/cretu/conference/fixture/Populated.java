@@ -3,9 +3,11 @@ package com.github.catalin.cretu.conference.fixture;
 import com.github.catalin.cretu.conference.event.Author;
 import com.github.catalin.cretu.conference.event.Event;
 import com.github.catalin.cretu.conference.event.Period;
+import lombok.experimental.UtilityClass;
 
 import java.time.LocalDateTime;
 
+@UtilityClass
 public class Populated {
 
     public static Event.EventBuilder event() {
@@ -16,6 +18,7 @@ public class Populated {
         return Event.builder()
                 .title(title)
                 .description(title + " description")
+                .location("1st room")
                 .period(Period.builder()
                         .startDateTime(LocalDateTime.of(2000, 1, 1, 10, 0, 0))
                         .endDateTime(LocalDateTime.of(2000, 1, 1, 11, 0, 0))

@@ -5,11 +5,11 @@ import com.github.catalin.cretu.conference.event.EventRepository;
 
 import java.util.Set;
 
-class DefaultEventRepository implements EventRepository {
+class InMemEventRepository implements EventRepository {
 
     private Set<Event> events;
 
-    DefaultEventRepository(final Set<Event> defaultEvents) {
+    InMemEventRepository(final Set<Event> defaultEvents) {
         this.events = defaultEvents;
     }
 

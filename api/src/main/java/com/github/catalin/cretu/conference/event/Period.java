@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.github.catalin.cretu.conference.result.ErrorResult.error;
+import static com.github.catalin.cretu.conference.result.ErrorResult.errorResult;
 
 @Value
 @Builder
@@ -23,10 +23,13 @@ public class Period implements Validatable {
         var errors = new HashSet<ErrorResult>();
 
         if (startDateTime == null) {
-            errors.add(error("startDateTime", "startDateTime must not be blank"));
+            errors.add(errorResult("startDateTime", "period start date and time must not be blank"));
         }
         if (endDateTime == null) {
-            errors.add(error("endDateTime", "endDateTime must not be blank"));
+            errors.add(errorResult("endDateTime", "period end date and time must not be blank"));
+        } else if (startDateTime != null
+                && startDateTime.isAfter(endDateTime)) {
+            errors.add(errorResult("startDateTime", "period start date and time must be after end date and time"));
         }
         return errors;
     }

@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.github.catalin.cretu.conference.result.ErrorResult.error;
+import static com.github.catalin.cretu.conference.result.ErrorResult.errorResult;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Data
@@ -24,13 +24,13 @@ public class Author implements Validatable {
         var errors = new HashSet<ErrorResult>();
 
         if (isBlank(name)) {
-            errors.add(error("name", "author name must not be blank"));
+            errors.add(errorResult("name", "author name must not be blank"));
         }
         if (isBlank(jobTitle)) {
-            errors.add(error("jobTitle", "author job title must not be blank"));
+            errors.add(errorResult("jobTitle", "author job title must not be blank"));
         }
         if (isBlank(companyName)) {
-            errors.add(error("companyName", "author company name must not be blank"));
+            errors.add(errorResult("companyName", "author company name must not be blank"));
         }
         return errors;
     }

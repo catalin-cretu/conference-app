@@ -1,6 +1,7 @@
 package com.github.catalin.cretu.conference.togglz;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static com.github.catalin.cretu.conference.fixture.Fixtures.featureService;
@@ -19,39 +20,49 @@ class FeatureServiceTest {
                 .contains(entry(NOOP, true));
     }
 
-    @Test
-    @DisplayName("enableFeature - Existing feature - Returns all states")
-    void enableFeature() {
-        var featureService = featureService(NOOP, false);
+    @Nested
+    @DisplayName("enableFeature")
+    class EnableFeature {
 
-        assertThat(featureService.enable(NOOP.name()))
-                .contains(entry(NOOP, true));
+        @Test
+        @DisplayName("With existing feature - Returns all features")
+        void existingFeature() {
+            var featureService = featureService(NOOP, false);
+
+            assertThat(featureService.enable(NOOP.name()))
+                    .contains(entry(NOOP, true));
+        }
+
+        @Test
+        @DisplayName("With missing feature - Returns all features")
+        void missingFeature() {
+            var featureService = featureService(NOOP, false);
+
+            assertThat(featureService.enable("NON_EXISTENT"))
+                    .doesNotContainValue(true);
+        }
     }
 
-    @Test
-    @DisplayName("enableFeature - Nonexistent feature - Returns all states")
-    void enableFeature_NonExistentFeature() {
-        var featureService = featureService(NOOP, false);
+    @Nested
+    @DisplayName("disableFeature")
+    class DisableFeature {
 
-        assertThat(featureService.enable("NON_EXISTENT"))
-                .doesNotContainValue(true);
-    }
+        @Test
+        @DisplayName("With existing feature - Returns all features")
+        void existingFeature() {
+            var featureService = featureService(NOOP, true);
 
-    @Test
-    @DisplayName("disableFeature - Existing feature - Returns all states")
-    void disableFeature() {
-        var featureService = featureService(NOOP, true);
+            assertThat(featureService.disable(NOOP.name()))
+                    .contains(entry(NOOP, false));
+        }
 
-        assertThat(featureService.disable(NOOP.name()))
-                .contains(entry(NOOP, false));
-    }
+        @Test
+        @DisplayName("With missing feature - Returns all features")
+        void missingFeature() {
+            var featureService = featureService(NOOP, true);
 
-    @Test
-    @DisplayName("disableFeature - Nonexistent feature - Returns all states")
-    void disableFeature_NonExistentFeature() {
-        var featureService = featureService(NOOP, true);
-
-        assertThat(featureService.disable("NON_EXISTENT"))
-                .doesNotContainValue(false);
+            assertThat(featureService.disable("NON_EXISTENT"))
+                    .doesNotContainValue(false);
+        }
     }
 }
