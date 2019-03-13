@@ -31,6 +31,7 @@ management:
         include: info,health,liquibase
 
 togglz:
+  features-file: file:./data/togglz.properties
   enabled: true
   feature-enums: com.github.catalin.cretu.conference.togglz.FeatureToggle
   console:

@@ -10,8 +10,7 @@ hs_err_pid*
 # Maven
 target/
 
-# src
-*.db
+# IntelliJ IDEA
 /.idea/workspace.xml
 /.idea/modules.xml
 /.idea/encodings.xml
@@ -20,3 +19,8 @@ target/
 /.idea/sonarlint/
 /.idea/libraries/
 /.idea/dictionaries/
+
+# src
+*.db
+/web/data/
+/data/

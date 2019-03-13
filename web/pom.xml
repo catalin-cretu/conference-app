@@ -45,6 +45,12 @@
       <artifactId>jpa-api</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>com.github.catalin.cretu</groupId>
+      <artifactId>functional-tests</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>javax.xml.bind</groupId>
@@ -102,6 +108,26 @@
 
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>find port</id>
+            <goals>
+              <goal>reserve-network-port</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <minPortNumber>8000</minPortNumber>
+              <maxPortNumber>9000</maxPortNumber>
+              <portNames>
+                <portName>web.port</portName>
+              </portNames>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <executions>
@@ -111,6 +137,64 @@
             <goals>
               <goal>build-info</goal>
             </goals>
+          </execution>
+          <execution>
+            <id>start web server</id>
+            <goals>
+              <goal>start</goal>
+            </goals>
+            <phase>pre-integration-test</phase>
+            <configuration>
+              <mainClass>com.github.catalin.cretu.conference.App</mainClass>
+              <arguments>
+                <argument>--server.port=${web.port}</argument>
+                <argument>
+                  --spring.datasource.url=jdbc:h2:${project.build.directory}/data/app;AUTO_SERVER=true
+                </argument>
+                <argument>
+                  --togglz.features-file=file:${project.build.directory}/data/togglz.properties
+                </argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>stop apps</id>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+            <phase>post-integration-test</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <classpathDependencyExcludes>
+            <exclude>com.github.catalin.cretu:functional-tests</exclude>
+          </classpathDependencyExcludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>run functional tests</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+            <configuration>
+              <dependenciesToScan>
+                <scan>com.github.catalin.cretu:functional-tests</scan>
+              </dependenciesToScan>
+              <systemPropertyVariables>
+                <web.host>localhost</web.host>
+                <web.port>${web.port}</web.port>
+              </systemPropertyVariables>
+            </configuration>
           </execution>
         </executions>
       </plugin>

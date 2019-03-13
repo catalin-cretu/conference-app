@@ -67,7 +67,16 @@ public class ConferenceClient {
             throws IOException, InterruptedException {
 
         var httpResponse = httpClient.send(
-                toGetRequest(toURI(api.togglz.enableByFeature(featureName))),
+                toGetRequest(toURI(api.togglz.enable.byFeature(featureName))),
+                BodyHandlers.ofString());
+
+        return new Response<>(httpResponse, FeaturesResponse.class);
+    }
+
+    public HttpResponse<FeaturesResponse> disableFeature(final String featureName)
+            throws IOException, InterruptedException {
+        var httpResponse = httpClient.send(
+                toGetRequest(toURI(api.togglz.disable.byFeature(featureName))),
                 BodyHandlers.ofString());
 
         return new Response<>(httpResponse, FeaturesResponse.class);

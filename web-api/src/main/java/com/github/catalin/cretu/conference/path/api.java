@@ -12,18 +12,22 @@ public interface api {
     interface togglz {
         String Enable = Togglz + "/enable/";
 
-        static String enableByFeature(String featureName) {
-            return Enable + featureName;
-        }
-
         interface enable {
             String byFeatureName = Enable + "{" + PathVars.featureName + "}";
+
+            static String byFeature(String featureName) {
+                return Enable + featureName;
+            }
         }
 
         String Disable = Togglz + "/disable/";
 
         interface disable {
             String byFeatureName = Disable + "{" + PathVars.featureName + "}";
+
+            static String byFeature(String featureName) {
+                return Enable + featureName;
+            }
         }
     }
 
