@@ -5,12 +5,22 @@
 hs_err_pid*
 
 # idea
-.idea/
-!.idea/codeStyles
 *.iml
 
 # Maven
 target/
 
+# IntelliJ IDEA
+/.idea/workspace.xml
+/.idea/modules.xml
+/.idea/encodings.xml
+/.idea/dbnavigator.xml
+/.idea/compiler.xml
+/.idea/sonarlint/
+/.idea/libraries/
+/.idea/dictionaries/
+
 # src
 *.db
+/web/data/
+/data/

@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Conference App" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.github.catalin.cretu.conference.App" />
+    <module name="web" />
+    <shortenClasspath name="MANIFEST" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/web" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.github.catalin.cretu.conference.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

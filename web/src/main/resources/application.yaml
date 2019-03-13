@@ -1,0 +1,40 @@
+server:
+  port: 8078
+
+spring:
+  main:
+    banner-mode: "off"
+  application:
+    name: conference-app
+  display-name: conference-app
+
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    url: jdbc:h2:./data/app;AUTO_SERVER=true
+    username: user
+    password: pass
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+  compression:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,liquibase
+
+togglz:
+  features-file: file:./data/togglz.properties
+  enabled: true
+  feature-enums: com.github.catalin.cretu.conference.togglz.FeatureToggle
+  console:
+    enabled: true
+    secured: false
+    use-management-port: false

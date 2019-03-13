@@ -1,0 +1,10 @@
+spring:
+  main:
+    banner-mode: "off"
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    test-rollback-on-update: true
+  datasource:
+    url: jdbc:h2:./target/data/jpa-api;AUTO_SERVER=true
