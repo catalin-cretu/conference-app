@@ -4,6 +4,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.togglz.spring.boot.autoconfigure.TogglzAutoConfiguration;
 
@@ -17,6 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Import({ FeatureConfig.class, TogglzAutoConfiguration.class })
 @WebMvcTest(controllers = FeatureController.class)
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @ExtendWith(SpringExtension.class)
 @interface FeatureTestExtension {

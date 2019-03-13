@@ -1,4 +1,6 @@
 # conference-app
+[![Build Status](https://dev.azure.com/catalin-cretu/conference-app/_apis/build/status/catalin-cretu.conference-app?branchName=master)](https://dev.azure.com/catalin-cretu/conference-app/_build/latest?definitionId=1&branchName=master)
+
 Conference Demo App
 
 ## Build Tools & Tech

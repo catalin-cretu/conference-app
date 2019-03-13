@@ -2,6 +2,7 @@ package com.github.catalin.cretu.conference;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.lang.annotation.Retention;
@@ -13,12 +14,9 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @Target(TYPE)
 @Retention(RUNTIME)
-//@TestPropertySource(        properties = {
-//        "spring.autoconfigure.exclude=com.github.catalin.cretu.conference.event.RepositoryConfig"
-//})
+@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(
-        webEnvironment = RANDOM_PORT)
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 @interface AppTestExtension {
     //no-op
 }
