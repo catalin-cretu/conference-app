@@ -23,4 +23,9 @@ class InMemEventRepository implements EventRepository {
         events.add(event);
         return event;
     }
+
+    @Override
+    public boolean exists(final Event event) {
+        return events.contains(event);
+    }
 }

@@ -5,12 +5,14 @@
   <logger name="org.eclipse.jetty.server.session"
           level="WARN"/>
 
+  <logger name="com.zaxxer.hikari"
+          level="WARN"/>
+  <logger name="liquibase.executor.jvm"
+          level="WARN"/>
+
   <logger name="org.springframework.web.context"
           level="WARN"/>
   <logger name="org.springframework.context.support"
-          level="WARN"/>
-
-  <logger name="com.zaxxer.hikari"
           level="WARN"/>
 
 </configuration>

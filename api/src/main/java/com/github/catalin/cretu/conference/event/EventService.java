@@ -25,23 +25,38 @@ public class EventService {
     }
 
     Result<Event> createEvent(final Event event) {
+        if (eventRepository.exists(event)) {
+            return toDuplicateEventResult(event);
+        }
         var errors = event.validate();
 
         if (!errors.isEmpty()) {
             logErrors(errors);
             return Result.errors(errors);
         }
-        Period period = event.getPeriod();
+        var period = event.getPeriod();
         log.info("Create event [{}] with period [{} - {}]",
                 event.getTitle(), period.getStartDateTime(), period.getEndDateTime());
 
         var createdEvent = eventRepository.save(event);
-
         return Result.ok(createdEvent);
     }
 
+    private static Result<Event> toDuplicateEventResult(final Event event) {
+        var author = event.getAuthor();
+        var authorMsg = author.getName() + " (" + author.getJobTitle() + " at " + author.getCompanyName() + ")";
+        var period = event.getPeriod();
+
+        var errorMessage = "Cannot create duplicate event with author " + authorMsg
+                + " starting at " + period.getStartDateTime()
+                + " and ending at " + period.getEndDateTime();
+
+        log.warn(errorMessage);
+        return Result.error("DUPLICATE_EVENT", errorMessage);
+    }
+
     private void logErrors(final Set<ErrorResult> errors) {
-        log.error("Errors:\n{}", errors.stream()
+        log.warn("Errors:\n{}", errors.stream()
                 .map(error -> "[" + error.getCode() + "] " + error.getMessage())
                 .collect(joining("\n")));
     }

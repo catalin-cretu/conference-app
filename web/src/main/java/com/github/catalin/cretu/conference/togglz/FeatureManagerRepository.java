@@ -15,7 +15,7 @@ public class FeatureManagerRepository implements FeatureRepository {
 
     private FeatureManager featureManager;
 
-    public FeatureManagerRepository(final FeatureManager featureManager) {
+    FeatureManagerRepository(final FeatureManager featureManager) {
         this.featureManager = featureManager;
     }
 

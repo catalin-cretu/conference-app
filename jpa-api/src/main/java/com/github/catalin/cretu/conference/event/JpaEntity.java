@@ -49,13 +49,13 @@ public class JpaEntity {
         private String location;
 
 
-        @Column(name = "NAME")
-        private String name;
+        @Column(name = "AUTHOR_NAME")
+        private String authorName;
 
-        @Column(name = "JOB_TITLE")
-        private String jobTitle;
+        @Column(name = "AUTHOR_JOB_TITLE")
+        private String authorJobTitle;
 
-        @Column(name = "COMPANY_NAME")
-        private String companyName;
+        @Column(name = "AUTHOR_COMPANY_NAME")
+        private String authorCompanyName;
     }
 }

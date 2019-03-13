@@ -35,9 +35,9 @@ class EventJpaRepositoryTest {
                         .location("room-A")
                         .startDateTime(LocalDateTime.of(2000, 1, 2, 13, 0, 0))
                         .endDateTime(LocalDateTime.of(2000, 1, 2, 13, 45, 0))
-                        .name("Scott")
-                        .jobTitle("manager")
-                        .companyName("DDD")
+                        .authorName("Scott")
+                        .authorJobTitle("manager")
+                        .authorCompanyName("DDD")
                         .build());
         flush();
 
@@ -65,11 +65,11 @@ class EventJpaRepositoryTest {
         soft.assertThat(savedEvent.getLocation())
                 .isEqualTo("room-A");
 
-        soft.assertThat(savedEvent.getName())
+        soft.assertThat(savedEvent.getAuthorName())
                 .isEqualTo("Scott");
-        soft.assertThat(savedEvent.getJobTitle())
+        soft.assertThat(savedEvent.getAuthorJobTitle())
                 .isEqualTo("manager");
-        soft.assertThat(savedEvent.getCompanyName())
+        soft.assertThat(savedEvent.getAuthorCompanyName())
                 .isEqualTo("DDD");
 
         soft.assertAll();
@@ -81,7 +81,7 @@ class EventJpaRepositoryTest {
         var savedEvent = eventJpaRepository.save(Populated.event("DDD").build());
         flush();
 
-        savedEvent.setName("EEE");
+        savedEvent.setAuthorName("EEE");
         var updatedEvent = eventJpaRepository.save(savedEvent);
         flush();
 
@@ -89,7 +89,7 @@ class EventJpaRepositoryTest {
                 eventJpaRepository.findById(updatedEvent.getId())
         )
                 .get()
-                .extracting(Event::getName)
+                .extracting(Event::getAuthorName)
                 .isEqualTo("EEE");
 
         soft.assertAll();
@@ -124,6 +124,38 @@ class EventJpaRepositoryTest {
                 eventJpaRepository.findById(savedEvent.getId())
         ).isNotPresent();
 
+        soft.assertAll();
+    }
+
+    @Test
+    @DisplayName("exists - Event exists - Returns true")
+    void exists() {
+        soft.assertThat(
+                eventJpaRepository.exists(
+                        LocalDateTime.of(2003, 3, 3, 13, 0),
+                        LocalDateTime.of(2003, 3, 3, 13, 30),
+                        "Bobby",
+                        "support",
+                        "Google"))
+                .isFalse();
+
+        eventJpaRepository.save(Populated.event()
+                .startDateTime(LocalDateTime.of(2003, 3, 3, 13, 0))
+                .endDateTime(LocalDateTime.of(2003, 3, 3, 13, 30))
+                .authorName("Bobby")
+                .authorJobTitle("support")
+                .authorCompanyName("Google")
+                .build());
+        flush();
+
+        boolean eventExists = eventJpaRepository.exists(
+                LocalDateTime.of(2003, 3, 3, 13, 0),
+                LocalDateTime.of(2003, 3, 3, 13, 30),
+                "Bobby",
+                "support",
+                "Google");
+
+        soft.assertThat(eventExists).isTrue();
         soft.assertAll();
     }
 

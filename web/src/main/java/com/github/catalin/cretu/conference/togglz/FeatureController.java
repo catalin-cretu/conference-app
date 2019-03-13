@@ -1,8 +1,8 @@
 package com.github.catalin.cretu.conference.togglz;
 
 import com.github.catalin.cretu.conference.api.ApiResponse;
-import com.github.catalin.cretu.conference.api.feature.FeatureResponse;
 import com.github.catalin.cretu.conference.api.feature.FeatureView;
+import com.github.catalin.cretu.conference.api.feature.FeaturesResponse;
 import com.github.catalin.cretu.conference.path.api;
 import com.github.catalin.cretu.conference.path.api.PathVars;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class FeatureController {
     }
 
     @GetMapping(path = api.Togglz)
-    public ApiResponse<FeatureResponse> findAll() {
+    public ApiResponse<FeaturesResponse> findAll() {
         log.debug("Find all features");
 
         var features = featureService.findAll().entrySet()
@@ -35,11 +35,11 @@ public class FeatureController {
                         featureEntry.getValue()))
                 .collect(toSet());
 
-        return ApiResponse.ok(new FeatureResponse(features));
+        return ApiResponse.ok(new FeaturesResponse(features));
     }
 
     @GetMapping(path = api.togglz.enable.byFeatureName)
-    public ApiResponse<FeatureResponse> enableFeatureByName(
+    public ApiResponse<FeaturesResponse> enableFeatureByName(
             @PathVariable(PathVars.featureName) final String featureName) {
 
         featureService.enable(featureName);
@@ -48,7 +48,7 @@ public class FeatureController {
     }
 
     @GetMapping(path = api.togglz.disable.byFeatureName)
-    public ApiResponse<FeatureResponse> disableFeatureByName(
+    public ApiResponse<FeaturesResponse> disableFeatureByName(
             @PathVariable(PathVars.featureName) final String featureName) {
 
         featureService.disable(featureName);

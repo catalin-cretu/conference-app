@@ -7,4 +7,6 @@ public interface EventRepository {
     Set<Event> findAll();
 
     Event save(final Event event);
+
+    boolean exists(Event event);
 }

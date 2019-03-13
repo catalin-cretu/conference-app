@@ -29,11 +29,11 @@ databaseChangeLog:
                   name: LOCATION
                   type: varchar(100)
               - column:
-                  name: NAME
+                  name: AUTHOR_NAME
                   type: varchar(100)
               - column:
-                  name: JOB_TITLE
+                  name: AUTHOR_JOB_TITLE
                   type: varchar(100)
               - column:
-                  name: COMPANY_NAME
+                  name: AUTHOR_COMPANY_NAME
                   type: varchar(100)

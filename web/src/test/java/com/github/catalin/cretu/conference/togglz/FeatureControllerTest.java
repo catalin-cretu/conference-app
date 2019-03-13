@@ -5,8 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
-import org.togglz.core.manager.FeatureManager;
-import org.togglz.core.repository.FeatureState;
 
 import static com.github.catalin.cretu.conference.togglz.FeatureToggle.EVENTS;
 import static org.hamcrest.CoreMatchers.hasItem;
@@ -15,21 +13,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @FeatureTestExtension
-class FeatureServiceControllerTest {
+@DisplayName(api.Togglz)
+class FeatureControllerTest {
 
     private final MockMvc mockMvc;
-    private final FeatureManager featureManager;
+    private final FeatureService featureService;
 
     @Autowired
-    FeatureServiceControllerTest(final MockMvc mockMvc, final FeatureManager featureManager) {
+    FeatureControllerTest(final MockMvc mockMvc, final FeatureService featureService) {
         this.mockMvc = mockMvc;
-        this.featureManager = featureManager;
+        this.featureService = featureService;
     }
 
     @Test
     @DisplayName("GET  " + api.Togglz)
     void findAll() throws Exception {
-        featureManager.setFeatureState(new FeatureState(EVENTS, true));
+        featureService.enable(EVENTS.name());
 
         mockMvc.perform(
                 get(api.Togglz)
@@ -37,13 +36,12 @@ class FeatureServiceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.features.[*].active", hasItem(true)))
                 .andExpect(jsonPath("$.features.[*].name", hasItem(EVENTS.name())));
-
     }
 
     @Test
     @DisplayName("GET  " + api.togglz.enable.byFeatureName)
     void enableFeatureByName() throws Exception {
-        featureManager.setFeatureState(new FeatureState(EVENTS, false));
+        featureService.disable(EVENTS.name());
 
         mockMvc.perform(
                 get(api.togglz.enable.byFeatureName, EVENTS.name())
@@ -57,7 +55,7 @@ class FeatureServiceControllerTest {
     @Test
     @DisplayName("GET  " + api.togglz.disable.byFeatureName)
     void disableFeatureByName() throws Exception {
-        featureManager.setFeatureState(new FeatureState(EVENTS, true));
+        featureService.enable(EVENTS.name());
 
         mockMvc.perform(
                 get(api.togglz.disable.byFeatureName, EVENTS.name())

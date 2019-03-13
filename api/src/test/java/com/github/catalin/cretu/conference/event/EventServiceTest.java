@@ -101,6 +101,47 @@ class EventServiceTest {
         class ErrorResults {
 
             @Test
+            @DisplayName("When event already exists")
+            void eventExists() {
+                var eventService = eventService();
+
+                Result<Event> firstEvent = eventService.createEvent(Populated.event()
+                        .author(Author.builder()
+                                .name("Bob0")
+                                .jobTitle("dev")
+                                .companyName("JCN")
+                                .build())
+                        .period(Period.builder()
+                                .startDateTime(LocalDateTime.of(2001, 1, 1, 11, 0))
+                                .endDateTime(LocalDateTime.of(2001, 1, 1, 12, 0))
+                                .build())
+                        .build());
+                assertThat(firstEvent.hasErrors()).isFalse();
+
+                Event event = Populated.event()
+                        .author(Author.builder()
+                                .name("Bob")
+                                .jobTitle("dev")
+                                .companyName("JCN")
+                                .build())
+                        .period(Period.builder()
+                                .startDateTime(LocalDateTime.of(2001, 1, 1, 11, 0))
+                                .endDateTime(LocalDateTime.of(2001, 1, 1, 12, 0))
+                                .build())
+                        .build();
+                Result<Event> secondEvent = eventService.createEvent(event);
+                assertThat(secondEvent.hasErrors()).isFalse();
+
+                Result<Event> duplicateEvent = eventService.createEvent(event);
+                assertThat(duplicateEvent.getErrors())
+                        .extracting(ErrorResult::getCode, ErrorResult::getMessage)
+                        .containsSequence(tuple(
+                                "DUPLICATE_EVENT",
+                                "Cannot create duplicate event with author Bob (dev at JCN) " +
+                                        "starting at 2001-01-01T11:00 and ending at 2001-01-01T12:00"));
+            }
+
+            @Test
             @DisplayName("When missing event details")
             void missingDetails() {
                 var eventService = eventService();

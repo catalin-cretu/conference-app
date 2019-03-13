@@ -1,3 +1,6 @@
+server:
+  port: 8078
+
 spring:
   main:
     banner-mode: "off"
@@ -9,8 +12,14 @@ spring:
     console:
       enabled: true
 
-  liquibase:
+  datasource:
     url: jdbc:h2:./data/app;AUTO_SERVER=true
+    username: user
+    password: pass
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
 
   compression:
     enabled: true

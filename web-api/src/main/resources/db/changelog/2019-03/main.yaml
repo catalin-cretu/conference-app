@@ -1,4 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: 01-noop.yaml
-      relativeToChangelogFile: true

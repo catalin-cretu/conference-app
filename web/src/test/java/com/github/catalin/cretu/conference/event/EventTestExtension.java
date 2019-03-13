@@ -1,9 +1,10 @@
-package com.github.catalin.cretu.conference.togglz;
+package com.github.catalin.cretu.conference.event;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.togglz.spring.boot.autoconfigure.TogglzAutoConfiguration;
 
@@ -15,10 +16,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target(TYPE)
 @Retention(RUNTIME)
-@Import({ FeatureConfig.class, TogglzAutoConfiguration.class })
-@WebMvcTest(controllers = FeatureController.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@Import({ EventConfig.class, RepositoryConfig.class, TogglzAutoConfiguration.class })
+@ActiveProfiles("events-controller")
+@WebMvcTest(controllers = EventsController.class)
+@SpringBootTest
 @ExtendWith(SpringExtension.class)
-@interface FeatureTestExtension {
+@interface EventTestExtension {
     //no-op
 }

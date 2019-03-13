@@ -13,8 +13,12 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @Target(TYPE)
 @Retention(RUNTIME)
+//@TestPropertySource(        properties = {
+//        "spring.autoconfigure.exclude=com.github.catalin.cretu.conference.event.RepositoryConfig"
+//})
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = RANDOM_PORT)
+@SpringBootTest(
+        webEnvironment = RANDOM_PORT)
 @interface AppTestExtension {
     //no-op
 }

@@ -1,9 +1,12 @@
 package com.github.catalin.cretu.conference.fixture;
 
+import lombok.experimental.UtilityClass;
+
 import java.time.LocalDateTime;
 
 import static com.github.catalin.cretu.conference.event.JpaEntity.Event;
 
+@UtilityClass
 public class Populated {
 
     public static Event.EventBuilder event() {
@@ -16,8 +19,8 @@ public class Populated {
                 .description(name + " description")
                 .startDateTime(LocalDateTime.of(2000, 1, 1, 10, 0, 0))
                 .endDateTime(LocalDateTime.of(2000, 1, 1, 11, 0, 0))
-                .name("Bob")
-                .jobTitle("senior dev")
-                .companyName("Acme Inc.");
+                .authorName("Bob")
+                .authorJobTitle("senior dev")
+                .authorCompanyName("Acme Inc.");
     }
 }
